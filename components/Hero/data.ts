@@ -1,31 +1,38 @@
 export const data = [
   {
-    id: '03',
+    id: 0,
     title: 'Pekora Usada',
     image: '/img/backgrounds/pekora.jpg'
   },
   {
-    id: '04',
+    id: 1,
     title: 'Korone Inugami',
     image: '/img/backgrounds/korone.jpg'
   },
   {
-    id: '02',
-    title: 'Peko & Miko',
+    id: 2,
+    title: 'Peko & M iko',
     image: '/img/backgrounds/peko-miko.jpg'
   },
   {
-    id: '01',
+    id: 3,
     title: 'Tsunomaki Janken',
     image: '/img/backgrounds/watame.png'
   },
 ]
 
-export const sliderSettings = {
-  dots: true,
-  infinite: true,
+export const slickImageProps = {
   arrows: false,
-  speed: 500,
+  infinite: true,
+}
+
+export const slickTitleProps = {
+  arrows: false,
+  dots: true,
+  swipeToSlide: true,
+  centerMode: true,
+  infinite: true,
   slidesToShow: 1,
-  slidesToScroll: 1
-};
+  focusOnSelect: true,
+  variableWidth: true,
+}

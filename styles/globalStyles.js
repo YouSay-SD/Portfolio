@@ -19,7 +19,7 @@ export const GlobalStyles = () => (
         padding: 0;
         margin: 0;
         box-sizing: border-box;
-        font-family: 'M PLUS 1p', sans-serif;
+        font-family: 'Roboto Condensed', sans-serif;
         /* font-family: 'Segoe UI Historic', 'Segoe UI', Helvetica, Arial,
           sans-serif; */
       }

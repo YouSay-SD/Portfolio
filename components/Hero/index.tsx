@@ -1,58 +1,64 @@
-import React, { FC, HTMLAttributes, useEffect, useRef, useState } from "react";
+import React, { FC, useState } from "react";
 import Slider from "react-slick";
-import { data, sliderSettings } from './data';
+import { data, slickTitleProps, slickImageProps } from './data';
 import { HeroStyled, ImageStyled, SlideStyled } from './styles';
-import { Title, ArcText } from '../../components';
+import { ArcText } from '../../components';
 // import ReactArcText from 'react-arc-text';
 // import{curveText} from 'curvetext'
 // import ArcText from 'arc-text';
 
 const Hero: FC = () => {
-  // const arcText = new ArctText(document.getElementById('myElement'));
-  const titleRef = useRef<any>(null);
-  const [curve, setCurve] = useState(150)
+  const [activeSlide, setActiveSlide] = useState(false)
+  const [slickTitle, setSlickTitle] = useState<any>()
+  const [slickImage, setSlickImage] = useState<any>()
+  const [slickIndex, setSlickIndex] = useState<number>(0);
 
   return (
     <HeroStyled>
-      {/* <h2 ref={titleRef}>KORONE</h2> */}
-      {/* <button onClick={() => setCurve(730)}>CLICK</button> */}
-      <Slider {...sliderSettings}>
+      {/* Slick Image */}
+      <Slider
+        className='slick-image'
+        asNavFor={slickTitle} 
+        ref={(slider1) => setSlickTitle(slider1)}
+        {...slickImageProps}
+      >
         {data.map(({ id, title, image }) => {
           return (
             <SlideStyled 
               key={id}
             >
-              {/* <Title 
-                size='lg' 
-                main
-              >
-                {title}
-              </Title> */}
-              <ArcText
-                text={title.toUpperCase()}
-                arc={50}
-                radius={1900}
-              />
-              {/* <h2 ref={titleRef}>{title}</h2> */}
-              {/* <ReactArcText
-                text={title}
-                direction={1}
-                arc={100}
-              /> */}
-              {/* <h2>
-                <svg viewBox="0 0 130 130">
-                <path id="MyPath" fill="none" stroke="lightblue"
-                      d="m10,45c53,-33 96,3 96,3" />
-                <text><textPath href="#MyPath">CURVE ME!</textPath></text> 
-                </svg>
-              </h2> */}
               <ImageStyled
                 alt={title}
                 src={image}
-                // width={1000}
-                // height={700}
-                // layout='fill'
-                // objectFit='cover'
+                active={slickIndex === id ? activeSlide : false}
+              />
+            </SlideStyled>
+          )
+        })}
+      </Slider>
+
+      {/* Slick Title */}
+      <Slider
+        {...slickTitleProps}
+        className='slick-title'
+        asNavFor={slickTitle}
+        ref={slider2 => setSlickImage(slider2)}
+        beforeChange= {(prevSlide, nextSlide) => {
+          setSlickIndex(nextSlide);
+        }}
+      >
+        {data.map(({ id, title }) => {
+          return (
+            <SlideStyled 
+              key={id}
+            >
+              <ArcText
+                activeSlide={activeSlide}
+                onMouseEnter={() => setActiveSlide(true)}
+                onMouseLeave={() => setActiveSlide(false)}
+                text={title.toUpperCase()}
+                radius={2000}
+                arc={35}
               />
             </SlideStyled>
           )
